@@ -3,9 +3,9 @@ import '../screens/get_started_screen/get_started_screen.dart';
 import '../screens/onboarding_screen/onboarding_screen.dart';
 import '../screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
-import '../screens/auth/sign_in_screen.dart';
-import '../screens/auth/sign_up_screen.dart';
-import '../screens/auth/forgot_password_screen.dart';
+import '../screens/auth/sign_in_screen/sign_in_screen.dart';
+import '../screens/auth/sign_up_screen/sign_up_screen.dart';
+import '../screens/auth/forgot_password_screen/forgot_password_screen.dart';
 
 class AppRoute {
   static const String signIn = '/sign_in_screen';
@@ -30,7 +30,7 @@ class AppRoute {
       case getStartedScreen:
         return MaterialPageRoute(builder: (_) => const GetStartedScreen());
       case homeScreen:
-        return MaterialPageRoute(builder: (_) => const HomeScreen());
+        return MaterialPageRoute(builder: (_) =>  HomeScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

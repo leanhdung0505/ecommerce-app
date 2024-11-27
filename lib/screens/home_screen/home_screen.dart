@@ -1,9 +1,23 @@
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
+import 'package:ecommerce_app/data/model/featured_model.dart';
+import 'package:ecommerce_app/data/model/home_model.dart';
+import 'package:ecommerce_app/data/model/products_model.dart';
+import 'package:ecommerce_app/data/model/slider_model.dart';
+import 'package:ecommerce_app/screens/home_screen/widgets/list_featured_widget.dart';
+import 'package:ecommerce_app/screens/home_screen/widgets/product_list_item_widget.dart';
+import 'package:ecommerce_app/screens/home_screen/widgets/slider_widget.dart';
 import 'package:ecommerce_app/utils/constants/image_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../../widget/custom_outlined_button.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+  final HomeModel _homeModel = HomeModel();
+  final ValueNotifier<int> _currentSliderIndex = ValueNotifier<int>(0);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +43,18 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         _buildSearchSection(context),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        _buildCategoryScroll(),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        _buildSlider(),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        _buildProductList(),
                       ],
                     ),
                   ),
@@ -134,6 +160,13 @@ class HomeScreen extends StatelessWidget {
                 ),
                 const Spacer(),
                 _buildSortButton(),
+                const SizedBox(
+                  width: 10,
+                ),
+                _buildFilterButton(),
+                const SizedBox(
+                  width: 10,
+                ),
               ],
             ),
           ),
@@ -143,34 +176,285 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildSortButton() {
-    return Container(
-      height: 24,
-      width: 61,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        border: Border.all(
-          color: const Color(0xFFBBBBBB),
-          width: 1.0,
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(
-            Icons.sort,
-            size: 16,
-            color: Color(0xFFBBBBBB),
-          ),
-          const SizedBox(width: 4),
-          Text(
-            'Sort',
-            style: GoogleFonts.montserrat(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: const Color(0xFFBBBBBB),
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+        height: 30,
+        width: 70,
+        child: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4.0),
             ),
           ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Sort',
+                style: GoogleFonts.montserrat(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(width: 4),
+              const Icon(
+                Icons.swap_vert,
+                size: 16,
+                color: Colors.black,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFilterButton() {
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+        height: 30,
+        width: 77,
+        child: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4.0),
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Filter',
+                style: GoogleFonts.montserrat(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(width: 4),
+              const Icon(
+                Icons.filter_alt_rounded,
+                size: 16,
+                color: Colors.black,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCategoryScroll() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: IntrinsicWidth(
+          child: Container(
+              width: 438,
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 2,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(right: 6),
+                    width: double.maxFinite,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Wrap(
+                        direction: Axis.horizontal,
+                        spacing: 16,
+                        children: List.generate(_homeModel.listFeatured.length,
+                            (index) {
+                          FeaturedModel model = _homeModel.listFeatured[index];
+                          return ListFeaturedWidget(model);
+                        }),
+                      ),
+                    ),
+                  )
+                ],
+              )),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFlashNews(
+      {required String titleFlashNews,
+      required String timeFlash,
+      required IconData icon}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          titleFlashNews,
+          style: GoogleFonts.montserrat(
+              fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        SizedBox(
+          width: double.maxFinite,
+          child: Row(
+            children: [
+              Icon(
+                icon,
+                color: Colors.white,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: Text(
+                  timeFlash,
+                  style: GoogleFonts.montserrat(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400),
+                ),
+              )
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildSlider() {
+    return Container(
+      width: double.maxFinite,
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          SizedBox(
+            width: double.maxFinite,
+            child: Column(
+              children: [
+                SizedBox(
+                  width: double.maxFinite,
+                  child: CarouselSlider.builder(
+                    options: CarouselOptions(
+                        height: 188,
+                        initialPage: 0,
+                        autoPlay: true,
+                        viewportFraction: 1.0,
+                        scrollDirection: Axis.horizontal,
+                        onPageChanged: (index, reason) {
+                          _currentSliderIndex.value = index;
+                        }),
+                    itemCount: _homeModel.listSlider.length,
+                    itemBuilder:
+                        (BuildContext context, int index, int realIndex) {
+                      SliderModel model = _homeModel.listSlider[index];
+                      return SliderWidget(
+                        model,
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                ValueListenableBuilder<int>(
+                  valueListenable: _currentSliderIndex,
+                  builder: (context, currentIndex, child) {
+                    return SizedBox(
+                      height: 8,
+                      child: AnimatedSmoothIndicator(
+                        activeIndex: currentIndex,
+                        count: _homeModel.listSlider.length,
+                        axisDirection: Axis.horizontal,
+                        effect: const ScrollingDotsEffect(
+                          dotColor: Colors.grey,
+                          activeDotColor: Color(0XFF17223B),
+                          dotHeight: 8,
+                          dotWidth: 8,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(
+                  height: 22,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0XFF4392F9),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  width: double.maxFinite,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: _buildFlashNews(
+                          titleFlashNews: 'Deal of the Day',
+                          timeFlash: '22h 55m 20s remaining',
+                          icon: Icons.watch_later_outlined,
+                        ),
+                      ),
+                      _buildViewAllButton(),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )
         ],
+      ),
+    );
+  }
+
+  Widget _buildViewAllButton() {
+    return CustomOutlinedButton(
+      width: 100,
+      text: "View all",
+      radius: 8,
+      rightIcon: Container(
+          margin: const EdgeInsets.only(left: 4),
+          child: const Icon(
+            Icons.arrow_forward_outlined,
+            color: Colors.white,
+            size: 20,
+          )),
+    );
+  }
+
+  Widget _buildProductList() {
+    return Container(
+      margin: EdgeInsets.only(left: 16),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Wrap(
+          direction: Axis.horizontal,
+          spacing: 12,
+          children: List.generate(
+            _homeModel.listProduct!.length,
+            (index) {
+              ProductsModel model = _homeModel.listProduct[index];
+              return ProductListItemWidget(
+                model,
+              );
+            },
+          ),
+        ),
       ),
     );
   }

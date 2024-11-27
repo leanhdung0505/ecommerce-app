@@ -14,18 +14,22 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () {
-      AppRoute.replaceWith(context, AppRoute.onboarding);
-    });
+    Timer(
+      const Duration(seconds: 3),
+      () {
+        AppRoute.replaceWith(context, AppRoute.onboarding);
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          color: Colors.white,
-          alignment: Alignment.center,
-          child: Image.asset(ImageConstant.imgLogo, height: 250, width: 250)),
+        color: Colors.white,
+        alignment: Alignment.center,
+        child: Image.asset(ImageConstant.imgLogo, height: 250, width: 250),
+      ),
     );
   }
 }
