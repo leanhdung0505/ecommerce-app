@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:ecommerce_app/utils/constants/image_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/routes/app_route.dart';
 
@@ -24,8 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
           color: Colors.white,
           alignment: Alignment.center,
-          child: Image.asset("assets/images/logoipsum-255-1.png",
-              height: 250, width: 250)),
+          child: Image.asset(ImageConstant.imgLogo, height: 250, width: 250)),
     );
   }
 }

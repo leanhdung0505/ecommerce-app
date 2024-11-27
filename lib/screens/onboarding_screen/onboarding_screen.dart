@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/routes/app_route.dart';
+import 'package:ecommerce_app/utils/constants/image_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -67,17 +68,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 _buildPage(
                   'Choose Products',
                   'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
-                  'assets/images/fashion-shop-rafiki-1.png',
+                  ImageConstant.imgFashion,
                 ),
                 _buildPage(
                   'Make Payment',
                   'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
-                  'assets/images/Sales consulting-pana-1.png',
+                  ImageConstant.imgSale,
                 ),
                 _buildPage(
                   'Get Your Order',
                   'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
-                  'assets/images/Shopping bag-rafiki-1.png',
+                  ImageConstant.imgShopping,
                 ),
               ],
             ),

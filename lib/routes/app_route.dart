@@ -1,4 +1,6 @@
-import 'package:ecommerce_app/screens/onboarding_screen/onboarding_screen.dart';
+import '../screens/home_screen/home_screen.dart';
+import '../screens/get_started_screen/get_started_screen.dart';
+import '../screens/onboarding_screen/onboarding_screen.dart';
 import '../screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import '../screens/auth/sign_in_screen.dart';
@@ -11,6 +13,8 @@ class AppRoute {
   static const String forgotPassword = "/forgot_password_screen";
   static const String onboarding = "/onboarding_screen";
   static const String splashScreen = '/splash_screen';
+  static const String getStartedScreen = '/get_started_screen';
+  static const String homeScreen = '/home_screen';
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case signIn:
@@ -23,6 +27,10 @@ class AppRoute {
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
       case splashScreen:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
+      case getStartedScreen:
+        return MaterialPageRoute(builder: (_) => const GetStartedScreen());
+      case homeScreen:
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
