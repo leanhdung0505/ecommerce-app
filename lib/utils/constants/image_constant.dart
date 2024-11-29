@@ -19,4 +19,10 @@ class ImageConstant {
   static String imgDress = "$imagePath/img_dress.png";
   static String imgClock = "$imagePath/image_clock.png";
   static String imgSlider = "$imagePath/image_slider.png";
+  static String imgOmg = "$imagePath/img_omg.png";
+  static String imgSpecialOffer = "$imagePath/special_offers.png";
+  static String imgGroup33732 = "$imagePath/img_group33732.png";
+  static String imgRectangle55 = "$imagePath/img_rectangle55.png";
+  static String imgSummerSale = "$imagePath/imgSummerSale.png";
+  static String imgSponsor = "$imagePath/img_sponsor.png";
 }

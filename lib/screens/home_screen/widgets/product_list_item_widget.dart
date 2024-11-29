@@ -1,12 +1,13 @@
-import 'package:ecommerce_app/data/model/products_model.dart';
-import 'package:ecommerce_app/widget/custom_rating_bar.dart';
+import '../../../data/model/products_model.dart';
+import '../../../widget/custom_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // ignore: must_be_immutable
 class ProductListItemWidget extends StatelessWidget {
-  ProductListItemWidget(this.productsModel, {super.key});
+  ProductListItemWidget(this.productsModel, this.isTrending, {super.key});
   ProductsModel productsModel;
+  bool isTrending;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -79,7 +80,9 @@ class ProductListItemWidget extends StatelessWidget {
                   style: GoogleFonts.montserrat(
                       color: const Color(0XFFBBBBBB),
                       fontWeight: FontWeight.w300,
-                      fontSize: 12),
+                      fontSize: 12,
+                      textStyle: const TextStyle(decoration: TextDecoration.lineThrough)),
+                      
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8),
@@ -97,31 +100,32 @@ class ProductListItemWidget extends StatelessWidget {
           const SizedBox(
             height: 4,
           ),
-          Container(
-            width: double.maxFinite,
-            margin: const EdgeInsets.symmetric(horizontal: 4),
-            child: Row(
-              children: [
-                CustomRatingBar(
-                  ignoreGestures: true,
-                  initialRating: productsModel.rate!,
-                  color: const Color(0XFFEDB310),
-                  unselectedColor: const Color(0XFFBBBBBB),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 4),
-                  child: Text(
-                    productsModel.numberRate!.toString(),
-                    style: GoogleFonts.montserrat(
-                      fontSize: 10,
-                      color: const Color(0XFFA4A9B3),
-                      fontWeight: FontWeight.w400,
-                    ),
+          if (!isTrending)
+            Container(
+              width: double.maxFinite,
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              child: Row(
+                children: [
+                  CustomRatingBar(
+                    ignoreGestures: true,
+                    initialRating: productsModel.rate!,
+                    color: const Color(0XFFEDB310),
+                    unselectedColor: const Color(0XFFBBBBBB),
                   ),
-                )
-              ],
-            ),
-          )
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4),
+                    child: Text(
+                      productsModel.numberRate!.toString(),
+                      style: GoogleFonts.montserrat(
+                        fontSize: 10,
+                        color: const Color(0XFFA4A9B3),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
         ],
       ),
     );

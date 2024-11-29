@@ -5,7 +5,7 @@ import 'base_button.dart';
 // ignore: must_be_immutable
 class CustomOutlinedButton extends BaseButton {
   CustomOutlinedButton(
-      {Key? key,
+      {super.key,
       this.decoration,
       this.leftIcon,
       this.rightIcon,
@@ -37,8 +37,8 @@ class CustomOutlinedButton extends BaseButton {
   }
 
   Widget get buildOutlinedButtonWidget => Container(
-        height: this.height ?? 30,
-        width: this.width ?? double.maxFinite,
+        height: height ?? 30,
+        width: width ?? double.maxFinite,
         margin: margin,
         decoration: decoration,
         child: OutlinedButton(

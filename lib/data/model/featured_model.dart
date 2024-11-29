@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/utils/constants/image_constant.dart';
+import '../../utils/constants/image_constant.dart';
 
 class FeaturedModel {
   FeaturedModel(this.imagePath, this.title, this.id) {
@@ -10,5 +10,3 @@ class FeaturedModel {
   String? title;
   String? id;
 }
-
-

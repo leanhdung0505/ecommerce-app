@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/data/model/featured_model.dart';
+import '../../../data/model/featured_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -29,7 +29,9 @@ class ListFeaturedWidget extends StatelessWidget {
             featuredModel!.title!,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.montserrat(
-                fontSize: 12, color: const Color(0XFF21003D)),
+              fontSize: 12,
+              color: const Color(0XFF21003D),
+            ),
           )
         ],
       ),
