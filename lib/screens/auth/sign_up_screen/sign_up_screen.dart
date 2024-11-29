@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/routes/app_route.dart';
+import 'package:ecommerce_app/utils/constants/image_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -278,11 +279,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildSocialButton('assets/images/google-1.png', () {}),
+            _buildSocialButton(ImageConstant.imgGoogle, () {}),
             const SizedBox(width: 16),
-            _buildSocialButton('assets/images/apple.png', () {}),
+            _buildSocialButton(ImageConstant.imgApple, () {}),
             const SizedBox(width: 16),
-            _buildSocialButton('assets/images/facebook-app-symbol.png', () {}),
+            _buildSocialButton(ImageConstant.imgFacebook, () {}),
           ],
         ),
       ],
